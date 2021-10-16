@@ -6,7 +6,8 @@ export function handleInitialData(){
   return (dispatch) => {
     return getInitialData()
     .then(( users, tweets) => {
-      
+      dispatch(receiveUsers(users))
+      dispatch(receiveTweets(tweets))
     })
   }
 }
