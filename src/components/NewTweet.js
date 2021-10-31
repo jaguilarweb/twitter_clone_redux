@@ -1,4 +1,9 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
+//We need to get access to dispatch so we can connect 
+//this component
+import { handleAddTweet } from '../actions/tweets'
+
 
 class NewTweet extends Component {
   state = {
@@ -17,10 +22,13 @@ class NewTweet extends Component {
     e.preventDefault()
 
     const { text } = this.state
-
     // todo: Add Tweet to Store
+    const { dispatch, id } = this.props
 
-    console.log('New tweet: ', text)
+    //In the argument, if we send an id
+    // it is meaning we are replaying the tweet
+    // and if it is not it is just a new tweet
+    dispatch(handleAddTweet(text, id))
 
     this.setState(() => ({
       text: ''
@@ -63,4 +71,5 @@ class NewTweet extends Component {
   }
 }
 
-export default NewTweet
+//This connect will give us access to dispatch
+export default connect()(NewTweet)
