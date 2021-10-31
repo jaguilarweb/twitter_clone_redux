@@ -3,11 +3,12 @@ import { connect } from 'react-redux'
 //We need to get access to dispatch so we can connect 
 //this component
 import { handleAddTweet } from '../actions/tweets'
-
+import { Redirect } from 'react-router-dom'
 
 class NewTweet extends Component {
   state = {
     text: '',
+    toHome: false,
   }
 
   handleChange = (e) => {
@@ -31,14 +32,18 @@ class NewTweet extends Component {
     dispatch(handleAddTweet(text, id))
 
     this.setState(() => ({
-      text: ''
+      text: '',
+      toHome: id ? false : true,
     }))
   }
 
   render(){
-    const {text} = this.state
+    const {text, toHome} = this.state
 
     {/* todo: Redirect to / if submited */}
+    if (toHome === true){
+      return <Redirect to='/' />
+    }
 
     const tweetLeft = 280 - text.length
 
